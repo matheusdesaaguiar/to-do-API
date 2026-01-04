@@ -1,9 +1,17 @@
 import ToDO from "../model/Todo.model.js";
+import parametrosObrigatorios from "../validations/Todo/camposObrigatorios.validation.js";
 class TodoController {
     async cadastrarTarefa(req, res, next) {
-        const tarefa = req.body;
-        const novaTarefa = ToDO.cadastrarTarefa(tarefa.titulo, tarefa.descricao, tarefa.data, tarefa.horario);
-        res.status(201).json(novaTarefa);
+        try {
+            const { titulo, descricao, data, horario } = req.body;
+
+            const novaTarefa = ToDO.cadastrarTarefa(titulo, descricao, data, horario);
+
+            res.status(201).json(novaTarefa);
+        } catch (error) {
+            next(error);
+        }
+        
     }
 
     async listarTarefas(req,res, next) {
