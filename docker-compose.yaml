@@ -1,0 +1,14 @@
+version: "3.8"
+services: 
+  app: 
+    container_name: to_do_list
+    build: 
+      context: .
+    volumes: 
+      - .:/usr/server.js
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    command: "node server.js"
+    environment:
+      - NODE_ENV=development
